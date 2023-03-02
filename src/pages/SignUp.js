@@ -1,11 +1,12 @@
 import { Container, Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
 import './Signup.css'
 import Robot from '../assets/robot.avif'
 import {useSignupUserMutation} from  '../services/appApi'
+
 
 
 const SignUp = () => {
@@ -16,6 +17,9 @@ const [signupUser, {isLoading, error}] = useSignupUserMutation()
 const [image, setImage] = useState(null)
 const [uploadingImg, setUploadingImg] = useState(false)
 const [imagePreview, setImagePreview] = useState(null)
+const Navigate = useNavigate();
+
+
 function validateImg(e){
   const file = e.target.files[0]
   if(file.size >= 1048756 ){
@@ -58,8 +62,9 @@ function validateImg(e){
  signupUser({name, email, password, picture: url}).then(({data}) =>{
   if(data){
     console.log(data);
-    Navigate('/chat')
+    Navigate('/chat');
   }
+  
  })
 }
 
