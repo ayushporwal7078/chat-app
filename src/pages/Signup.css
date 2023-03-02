@@ -1,0 +1,35 @@
+.signup_bg{
+    background-image: url(https://media.istockphoto.com/id/1321196662/photo/group-young-friends-using-mobile-smartphone-outdoor-millennial-generation-having-fun-with-new.jpg?b=1&s=170667a&w=0&k=20&c=hr2Xj8QkXK3vNwHcOdJ-PxXjVT6UtwCuZpNdFEKb02E=);
+    height: 92vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+
+.signup-profile-pic_container{
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.signup-profile-pic {
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid gray;
+    object-fit: cover;
+    height: 100px;
+
+}
+
+.add-picture-icon{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: greenyellow;
+    background: white;
+    cursor: pointer;
+    z-index: 99;
+}
