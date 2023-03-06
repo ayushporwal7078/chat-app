@@ -17,8 +17,25 @@ const [signupUser, {isLoading, error}] = useSignupUserMutation()
 const [image, setImage] = useState(null)
 const [uploadingImg, setUploadingImg] = useState(false)
 const [imagePreview, setImagePreview] = useState(null)
-const Navigate = useNavigate();
+const navigate = useNavigate();
+const [gender, setGender] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
 
+const handleGenderChange = (event) => {
+  setGender(event.target.value);
+};
+
+
+
+const handlePasswordChange = (event) => {
+  setPassword(event.target.value);
+};
+
+const handleConfirmPasswordChange = (event) => {
+  setConfirmPassword(event.target.value);
+};
+
+const passwordMatch = password === confirmPassword;
 
 function validateImg(e){
   const file = e.target.files[0]
@@ -59,10 +76,10 @@ function validateImg(e){
   const url = await uploadImage(image)
   console.log(url);
   //signup the  user
- signupUser({name, email, password, picture: url}).then(({data}) =>{
+ signupUser({name, email, password, gender, picture: url}).then(({data}) =>{
   if(data){
     console.log(data);
-    Navigate('/chat');
+    navigate("/chat");
   }
   
  })
@@ -95,11 +112,31 @@ function validateImg(e){
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value)} value={password} autoComplete="on" />
+      <Form.Group className="mb-3" controlId="PasswordConfirm">
+
+      <Form.Label>Password</Form.Label>
+      <Form.Control type="password" value={password} onChange={handlePasswordChange} />
+
+        <Form.Label>Confirm Password</Form.Label>
+      <Form.Control type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} isInvalid={!passwordMatch} />
+
+      {!passwordMatch && (
+        <Form.Control.Feedback type="invalid">
+          Passwords do not match.
+        </Form.Control.Feedback>
+      )}
       </Form.Group>
-      <Button variant="primary" type="submit">
+   
+      <Form.Group controlId="genderSelect">
+      <Form.Label>Gender</Form.Label>
+      <Form.Control as="select" value={gender} onChange={handleGenderChange}>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="non-binary">Non-binary</option>
+      </Form.Control>
+    </Form.Group>
+      <Button variant="primary" type="submit" onClick={ () =>{navigate("/chat");}}>
         {uploadingImg ? 'Signing you up...' : 'Signup'}
       </Button>
       <div className='py-4'>
